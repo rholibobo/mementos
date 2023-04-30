@@ -12,7 +12,16 @@ const initialState = {
 
 export const getPosts = createAsyncThunk("/...", async() => {
     try {
-        const response = await axios(url)
+        const response = await axios.get(url)
+        return response.data
+    } catch (error) {
+       console.log(error.message) 
+    }
+    
+})
+export const createPosts = createAsyncThunk("/...", async() => {
+    try {
+        const response = await axios.post(url)
         return response.data
     } catch (error) {
        console.log(error.message) 
@@ -41,6 +50,16 @@ export const postsSlice = createSlice({
             state.posts = action.payload
         },
         [getPosts.rejected]: (state) => {
+            state.isLoading = false
+        },
+        [createPosts.pending]: (state) => {
+            state.isLoading = true
+        },
+        [createPosts.fulfilled]: (state, action) => {
+            state.isLoading = false
+            state.posts = action.payload
+        },
+        [createPosts.rejected]: (state) => {
             state.isLoading = false
         },
     
