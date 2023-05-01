@@ -1,9 +1,9 @@
 import { makeStyles } from "tss-react/mui";
 
-export default makeStyles()(() => ({
+export default makeStyles()((theme) => ({
   appBar: {
     borderRadius: 15,
-    margin: "30px 0",
+    margin: "30px 0 40px 0",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -14,5 +14,11 @@ export default makeStyles()(() => ({
   },
   image: {
     marginLeft: "15px",
+  },
+  // On small screens
+  [theme.breakpoints.down('sm')]: {
+    mainContainer: {
+      flexDirection: "column-reverse",
+    },
   },
 }));

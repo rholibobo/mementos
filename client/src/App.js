@@ -1,32 +1,46 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
-import {getPosts} from "./actions/posts";
+import { getPosts } from "./actions/posts";
 import Posts from "./components/Posts/Posts";
 import Form from "./components/Form/Form";
 import memories from "./Images/memories.png";
-import useStyles from "./styles"
+import useStyles from "./styles";
 
 function App() {
-  const [currentId, setCurrentId] = useState(null)
-  const {classes} = useStyles();
+  const [currentId, setCurrentId] = useState(null);
+  const { classes } = useStyles();
   const dispatch = useDispatch();
 
-  useEffect(()=> {
-      dispatch(getPosts());
+  useEffect(() => {
+    dispatch(getPosts());
   }, [currentId, dispatch]); // eslint-disable-next-line
 
   return (
     <Container maxidth="lg">
       <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.heading} variant="h2" align="center">Mementos</Typography>
-        <img className={classes.image} src={memories} alt="mementos" height="60" />
+        <Typography className={classes.heading} variant="h2" align="center">
+          Mementos
+        </Typography>
+        <img
+          className={classes.image}
+          src={memories}
+          alt="mementos"
+          height="60"
+        />
       </AppBar>
       <Grow in>
-        <Container>
-          <Grid container justifyContent="space-between" alignItems='stretch' spacing={2}>
+        <Container sx={{ paddingBottom: { xs: "4rem", sm: "2rem" } }}>
+          <Grid
+            className={classes.mainContainer}
+            sx={{ flexDirection: { xs: "column-reverse", md: "row" }, justifyContent:{xs: "space-between", sm:"space-between" } }}
+            container
+            justifyContent="space-between"
+            alignItems="stretch"
+            spacing={3}
+          >
             <Grid items xs={12} sm={7}>
-              <Posts  setCurrentId={setCurrentId} />
+              <Posts setCurrentId={setCurrentId} />
             </Grid>
             <Grid items xs={12} sm={4}>
               <Form currentId={currentId} setCurrentId={setCurrentId} />
@@ -35,7 +49,7 @@ function App() {
         </Container>
       </Grow>
     </Container>
-  )
+  );
 }
 
 export default App;

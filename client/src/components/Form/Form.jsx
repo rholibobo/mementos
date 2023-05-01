@@ -20,13 +20,13 @@ const Form = ({ currentId, setCurrentId }) => {
     currentId ? state.posts.find((p) => p._id === currentId) : null
   );
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setPostData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }
+  // function handleChange(event) {
+  //   const { name, value } = event.target;
+  //   setPostData((prevState) => ({
+  //     ...prevState,
+  //     [name]: value,
+  //   }));
+  // }
 
   useEffect(() => {
     if (post) setPostData(post);
@@ -74,7 +74,7 @@ const Form = ({ currentId, setCurrentId }) => {
           label="Creator"
           fullWidth
           value={postData.creator}
-          onChange={handleChange}
+          onChange={(e) => setPostData({ ...postData, creator: e.target.value})}
         />
         <TextField
           name="title"
@@ -82,7 +82,7 @@ const Form = ({ currentId, setCurrentId }) => {
           label="Title"
           fullWidth
           value={postData.title}
-          onChange={handleChange}
+          onChange={(e) => setPostData({ ...postData, title: e.target.value})}
         />
         <TextField
           name="message"
@@ -90,7 +90,7 @@ const Form = ({ currentId, setCurrentId }) => {
           label="Message"
           fullWidth
           value={postData.message}
-          onChange={handleChange}
+          onChange={(e) => setPostData({ ...postData,message: e.target.value})}
         />
         <TextField
           name="tags"
@@ -98,7 +98,7 @@ const Form = ({ currentId, setCurrentId }) => {
           label="Tags"
           fullWidth
           value={postData.tags}
-          onChange={handleChange}
+          onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(",")})}
         />
         <div className={classes.fileInput}>
           <FileBase
