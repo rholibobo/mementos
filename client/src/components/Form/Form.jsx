@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@mui/material";
 import FileBase from "react-file-base64";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
 import useStyles from "./styles";
 import { createPost, updatePost } from "../../actions/posts";
 import { useSelector } from "react-redux";
 
 // GET THE CURRENT ID
 
-const Form = ({currentId, setCurrentId}) => {
+const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -16,7 +16,9 @@ const Form = ({currentId, setCurrentId}) => {
     tags: "",
     selectedFile: "",
   });
-  const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((p) => p._id === currentId) : null
+  );
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -26,26 +28,34 @@ const Form = ({currentId, setCurrentId}) => {
     }));
   }
 
-  useEffect(()=>{
-    if(post) setPostData(post)
-  }, [post])
-  
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
+
   const { classes } = useStyles();
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(currentId) {
+    if (currentId) {
       dispatch(updatePost(currentId, postData));
     } else {
       dispatch(createPost(postData));
     }
-
-
-    
+    clear();
   };
-  const clear = () => {};
+
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -55,7 +65,9 @@ const Form = ({currentId, setCurrentId}) => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Memory</Typography>
+        <Typography variant="h6">
+          {currentId ? "Editing a Memory" : "Creating a Memory"}
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"

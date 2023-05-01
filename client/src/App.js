@@ -14,7 +14,7 @@ function App() {
 
   useEffect(()=> {
       dispatch(getPosts());
-  }, [dispatch]); 
+  }, [currentId, dispatch]); // eslint-disable-next-line
 
   return (
     <Container maxidth="lg">
