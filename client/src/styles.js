@@ -8,6 +8,7 @@ export default makeStyles()((theme) => ({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   heading: {
     color: "rgba(0,183,255, 1)",
@@ -15,8 +16,11 @@ export default makeStyles()((theme) => ({
   image: {
     marginLeft: "15px",
   },
+  container: {
+    margin: "0 auto"
+  },
   // On small screens
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down("sm")]: {
     mainContainer: {
       flexDirection: "column-reverse",
     },
