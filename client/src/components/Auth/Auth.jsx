@@ -48,13 +48,14 @@ const Auth = () => {
       dispatch(signin(formData, navigate))
     }
   };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const switchMode = () => {
     setIsSignup((prevState) => !prevState);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
@@ -103,7 +104,7 @@ const Auth = () => {
             <Input
               name="email"
               label="Email Address"
-              handleChangge={handleChange}
+              handleChange={handleChange}
               type="email"
             />
             <Input
@@ -119,6 +120,7 @@ const Auth = () => {
                 label="Repeat Password"
                 handleChange={handleChange}
                 type="password"
+                
               />
             )}
           </Grid>

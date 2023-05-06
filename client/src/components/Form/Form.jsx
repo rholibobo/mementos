@@ -20,17 +20,9 @@ const Form = ({ currentId, setCurrentId }) => {
     currentId ? state.posts.find((p) => p._id === currentId) : null
   );
 
-  // function handleChange(event) {
-  //   const { name, value } = event.target;
-  //   setPostData((prevState) => ({
-  //     ...prevState,
-  //     [name]: value,
-  //   }));
-  // }
-
   useEffect(() => {
     if (post) setPostData(post);
-  }, [post]);
+  }, [post]); 
 
   const { classes } = useStyles();
   const dispatch = useDispatch();
