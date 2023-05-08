@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 
 import UserModel from "../models/user.js";
 
+const secret = 'test';
+
 export const signin = async (req, res) => {
   const { email, password } = req.body;
 
@@ -22,7 +24,7 @@ export const signin = async (req, res) => {
 
     const token = jwt.sign(
       { email: existingUser.email, id: existingUser._id },
-      "test",
+      secret,
       { expiresIn: "1h" }
     );
 
@@ -44,7 +46,7 @@ export const signup = async (req, res) => {
 
     const result = await UserModel.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
 
-    const token = jwt.sign( { email: result.email, id: result._id },"test", { expiresIn: "1h" } );
+    const token = jwt.sign( { email: result.email, id: result._id },secret, { expiresIn: "1h" } );
 
     res.status(200).json({ result, token });
   } catch (error) {

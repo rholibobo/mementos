@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+const secret = 'test';
 
 const auth = async (req, res, next) => {
     try {
@@ -13,7 +14,7 @@ const auth = async (req, res, next) => {
 
         if(token && isCustomAuth) {
             // We re gonna get the data of each token, i.e each username and Id. "test" is secretId for jwt used in the signin controller
-            decodedData = jwt.verify(token, "test");
+            decodedData = jwt.verify(token, secret);
 
             // Store user Id
             req.userId = decodedData?.id
