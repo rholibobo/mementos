@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import {useDispatch} from 'react-redux';
 import decode from "jwt-decode";
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@mui/material";
-import memories from "../../Images/memories.png";
+import memories from "../../Images/memories-Logo.png";
 
 import useStyles from "./styles";
 
@@ -42,16 +42,16 @@ const Navbar = () => {
           component={Link}
           to="/"
           className={classes.heading}
-          variant="h2"
+          variant="h3"
           align="center"
         >
-          Mementos
+          Memento
         </Typography>
         <img
           className={classes.image}
           src={memories}
           alt="mementos"
-          height="60"
+          height="45"
         />
       </div>
       <Toolbar className={classes.toolbar}>

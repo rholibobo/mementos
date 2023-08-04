@@ -7,13 +7,14 @@ import {
   AppBar,
   TextField,
   Button,
-  Chip,
+  
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { getPosts } from "../../actions/posts";
+import { getPosts, getPostsBySearch } from "../../actions/posts";
 import Pagination from "../Pagination";
+import ChipInput from "material-ui-chip-input"
 
 import useStyles from "./styles";
 import Posts from "../Posts/Posts";
@@ -33,28 +34,47 @@ const Home = () => {
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]); // eslint-disable-next-line
+  const [search, setSearch] = useState("");
+  const [tags, setTags] = useState([]);
+
+
+  const searchPost = () => {
+    if(search.trim() || tags) {
+      dispatch(getPostsBySearch({ search, tags: tags.join(",")}));
+      navigate(`/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`);
+    } else {
+      navigate("/")
+    }
+  }
+
+  const handleKeyPress = (e) => {
+    if(e.keyCode === 13) {
+      searchPost();
+    }
+  }
+
+  const handleAdd = (tag) => setTags([...tags, tag])
+
+  const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag != tagToDelete));
 
   return (
     <Grow in>
       <Container
-        maxWidth="xl"
-        sx={{ paddingBottom: { xs: "4rem", sm: "2rem" } }}
+        maxWidth="lg"
+        // sx={{ paddingBottom: { xs: "4rem", sm: "2rem" } }}
       >
         <Grid
-          // className={classes.gridContainer}
-          className={classes.gridContainer}
+          sx={{flexDirection: {xs: "column-reverse", md: "row"}}}
           container
           justifyContent="space-between"
           alignItems="stretch"
           spacing={3}
+          
         >
-          <Grid items xs={12} sm={6} md={9}>
+          <Grid items xs={12} sm={6} md={8.5}>
             <Posts setCurrentId={setCurrentId} />
           </Grid>
-          <Grid items xs={12} sm={6} md={3}>
+          <Grid items xs={12} sm={6} md={3.3}>
             <AppBar
               className={classes.appBarSearch}
               position="static"
@@ -64,14 +84,26 @@ const Home = () => {
                 name="search"
                 variant="outlined"
                 label="Search Memories"
+                onKeyDown={handleKeyPress}
                 fullWidth
-                value="TEST"
-                onChange={() => {}}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
+              <ChipInput 
+                style={{margin: "10px 0"}}
+                value={tags}
+                onAdd={handleAdd}
+                onDelete={handleDelete}
+                label="Search Tags"
+                variant="outlined"
+
+
+              />
+              <Button onClick={searchPost} className={classes.searchButton} color="primary" variant="contained">Search</Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper elevation={6}>
-              <Pagination />
+              <Pagination page={page} />
             </Paper>
           </Grid>
         </Grid>

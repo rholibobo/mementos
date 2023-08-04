@@ -22,8 +22,6 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  console.log(user);
-
   useEffect(() => {
     if (post) setPostData(post);
   }, [post]); // eslint-disable-next-line
