@@ -15,6 +15,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const logout = () => {
     dispatch({type: "LOGOUT"})
 
@@ -33,7 +34,7 @@ const Navbar = () => {
     } 
 
     setUser(JSON.parse(localStorage.getItem('profile')))
-  }, [location])  //when location changes the UseEffect takes effect
+  }, [location, logout, user?.token])  //when location changes the UseEffect takes effect
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">

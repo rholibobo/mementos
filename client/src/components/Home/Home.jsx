@@ -57,7 +57,7 @@ const Home = () => {
   const handleAdd = (tag) => setTags([...tags, tag]);
 
   const handleDelete = (tagToDelete) =>
-    setTags(tags.filter((tag) => tag != tagToDelete));
+    setTags(tags.filter((tag) => tag !== tagToDelete));
 
   return (
     <Grow in>
@@ -108,7 +108,7 @@ const Home = () => {
               </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
-            {!searchQuery && !tags.length && (
+            {!searchQuery && !tags?.length && (
               <Paper elevation={6} className={classes.pagination}>
                 <Pagination page={page} />
               </Paper>
