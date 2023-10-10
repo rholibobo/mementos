@@ -8,17 +8,19 @@ import useStyles from "./styles";
 import { Link } from "react-router-dom";
 
 const Paginate = ({page}) => {
-  const {numberOfPages} = useSelector((state) => state.posts)
+  const {numberOfPages} = useSelector((state) => state.posts);
   const { classes } = useStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if(page) dispatch(getPosts(page))
-  }, [page])
+  }, [dispatch, page])
 
   return (
     <Stack spacing={2}>
       <Pagination
+        // classes={{ul: classes.ul}}
+        sx={{justifyContent: "space-around"}}
         count={numberOfPages}
         page={Number(page) || 1}
         variant="outlined"

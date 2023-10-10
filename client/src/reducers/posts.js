@@ -14,7 +14,10 @@ export default (state = { isLoading: true, posts: [] }, action) => {
         numberOfPages: action.payload.numberOfPages,
       };
     case FETCH_BY_SEARCH:
-      return { ...state, posts: action.payload };
+      return {
+        ...state,
+        posts: action.payload,
+      };
     case FETCH_POST:
       return { ...state, post: action.payload };
     case LIKE:
