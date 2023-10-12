@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { Paper, Typography, CircularProgress, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 
 import moment from "moment";
+import CommentSection from "./CommentSection";
 import { getPost, getPostsBySearch } from '../../actions/posts';
 
 import useStyles from "./styles";
@@ -17,16 +19,18 @@ const PostDetails = () => {
 
   useEffect(() => {
       dispatch(getPost(id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
     }, [id]);
 
   useEffect(() => {
     if(post) {
       dispatch(getPostsBySearch({search: "none", tags: post?.tags.join(',')}));
     }
-  })
+  }, [post])
 
   if(!post) return null;
+
+  const openPost = (_id) => navigate(`posts/${_id}`)
 
   if(isLoading) {
     return (<Paper elevation={6} className={classes.loadingPaper}>
@@ -34,9 +38,9 @@ const PostDetails = () => {
     </Paper>);
   }
 
-  const recommendedPosts = posts.filter(({_id}) => _id !== post._id)
+  // const recommendedPosts = posts && posts.filter(({_id}) => _id !== post._id)
 
-  const openPost = (_id) => navigate(`posts/${_id}`)
+  
 
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
@@ -65,9 +69,7 @@ const PostDetails = () => {
             <strong>Realtime Chat - coming soon!</strong>
           </Typography>
           <Divider style={{ margin: "20px 0" }} />
-          <Typography variant="body1">
-            <strong>Comments - coming soon!</strong>
-          </Typography>
+          <CommentSection post={post} />
           <Divider style={{ margin: "20px 0" }} />
         </div>
         <div className={classes.imageSection}>
@@ -82,7 +84,7 @@ const PostDetails = () => {
         </div>
       </div>
       
-      {recommendedPosts.length && (
+      {/* {recommendedPosts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">
             You might also like:
@@ -108,13 +110,13 @@ const PostDetails = () => {
                   <Typography gutterBottom variant="subtitle1">
                     Likes: {likes.length}
                   </Typography>
-                  <img src={selectedFile} width="200px" />
+                  <img src={selectedFile} alt='view' width="200px" />
                 </div>
               )
             )}
           </div>
         </div>
-      )}
+      )} */}
     </Paper>
 
     

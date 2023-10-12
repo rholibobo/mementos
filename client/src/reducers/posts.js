@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { FETCH_ALL, FETCH_BY_SEARCH, FETCH_POST, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
 
 export default (state = { isLoading: true, posts: [] }, action) => {

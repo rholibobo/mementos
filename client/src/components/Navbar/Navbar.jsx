@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useState, useEffect} from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {useDispatch} from 'react-redux';
@@ -34,7 +35,7 @@ const Navbar = () => {
     } 
 
     setUser(JSON.parse(localStorage.getItem('profile')))
-  }, [location, logout, user?.token])  //when location changes the UseEffect takes effect
+  }, [location])  //when location changes the UseEffect takes effect
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
